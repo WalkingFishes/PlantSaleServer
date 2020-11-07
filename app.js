@@ -6,11 +6,13 @@ var logger = require('morgan');
 var config = require('./config');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/userRouter');
 var customerRouter = require('./routes/customerRouter');
 var flowerRouter = require('./routes/flowerRouter');
 var sellerRouter = require('./routes/sellerRouter'); 
 var priceRouter = require('./routes/priceRouter'); 
+var orderRouter = require('./routes/orderRouter'); 
+var ordFlowerRouter = require('./routes/ordFlowerRouter'); 
 
 const mongoose = require('mongoose');
 mongoose.set('useUnifiedTopology', true);
@@ -44,6 +46,8 @@ app.use('/customers/', customerRouter);
 app.use('/flowers', flowerRouter);
 app.use('/sellers', sellerRouter);
 app.use('/prices', priceRouter);
+app.use('/orders', orderRouter);
+app.use('/ordFlowers', ordFlowerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

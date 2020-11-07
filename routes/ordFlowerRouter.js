@@ -1,40 +1,40 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 
-const Customers = require('../models/customers');
-const customerRouter = express.Router();
+const OrdFlowers = require('../models/ordFlowers');
+const ordFlowerRouter = express.Router();
 
-customerRouter.use(bodyParser.json());
+ordFlowerRouter.use(bodyParser.json());
 
-customerRouter.route('/')
+ordFlowerRouter.route('/')
 .get((req,res,next) => {
     console.log(req.query);
-    Customers.find(req.query)
-    .then((customers) => {
+    OrdFlowers.find(req.query)
+    .then((ordFlowers) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customers);
+        res.json(ordFlowers);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post((req, res, next) => {
-    Customers.create(req.body)
-    .then((customer) => {
-        console.log("Customer created", customer);
+    OrdFlowers.create(req.body)
+    .then((ordFlower) => {
+        console.log("OrdFlower created", ordFlower);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customer);
+        res.json(ordFlower);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .put((req, res, next) => {
   res.statusCode = 403;
-  res.end('PUT operation not supported on /customers');
+  res.end('PUT operation not supported on /ordFlowers');
 })
 .delete((req, res, next) => {
-    Customers.deleteMany({})
+    OrdFlowers.deleteMany({})
     .then((resp) => {
-        console.log ("Deleted all customers");
+        console.log ("Deleted all ordFlowers");
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(resp);
@@ -42,9 +42,9 @@ customerRouter.route('/')
     .catch((err) => next(err));
 });
 
-customerRouter.route('/:customerId')
+ordFlowerRouter.route('/:ordFlowerId')
 .get((req,res,next) => {
-    Customers.findById(req.params.customerId)
+    OrdFlowers.findById(req.params.ordFlowerId)
     .then((leader) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -54,21 +54,21 @@ customerRouter.route('/:customerId')
 })
 .post((req, res, next) => {
   res.statusCode = 403;
-  res.end('POST operation not supported on /customers/'+ req.params.customerId);
+  res.end('POST operation not supported on /ordFlowers/'+ req.params.ordFlowerId);
 })
 .put((req, res, next) => {
-    Customers.findByIdAndUpdate(req.params.customerId, {
+    OrdFlowers.findByIdAndUpdate(req.params.ordFlowerId, {
         $set: req.body
     }, { new: true })
-    .then((customer) => {
+    .then((ordFlower) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customer);
+        res.json(ordFlower);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .delete((req, res, next) => {
-    Customers.findByIdAndRemove(req.params.customerId)
+    OrdFlowers.findByIdAndRemove(req.params.ordFlowerId)
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -77,4 +77,5 @@ customerRouter.route('/:customerId')
     .catch((err) => next(err));
 });
 
-module.exports = customerRouter;
+module.exports = ordFlowerRouter;
+

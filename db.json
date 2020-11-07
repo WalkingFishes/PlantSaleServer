@@ -18,5 +18,31 @@
         {"fname": "accent", "fvariety": "spikes", "fcontainer": "accent 4 inch", "price": "5fa623067b76be23050b5e50"},
         {"fname": "wave petunia", "fvariety": "bordeaux", "fcontainer": "hb", "price": "5fa623067b76be23050b5e56"},
         {"fname": "tomato", "fvariety": "cherry", "fcontainer": "tomato 4 inch", "price": "5fa623067b76be23050b5e59"}
+    ],
+    "customers": [
+        {"lastname": "Schuffler", "firstname": "Susan", "email": "susan.schuffler@sap.com", "telno": "847-670-4072", "address": "830 N. Princeton Arl Hts IL 60004"},
+        {"lastname": "McDonald", "firstname": "Betty", "email": "crbetty@live.com", "telno": "309-965-2383", "address": "PO Box 153 Goodfield, IL  61742"},
+        {"lastname": "Bauman", "firstname": "Carol", "email": "", "telno": "", "address": ""},
+        {"lastname": "McDonald", "firstname": "Kalli", "email": "mcmom3@me.com", "telno": "309-208-8280", "address": "1510 US Highway 150 "},
+        {"lastname": "Dierbach", "firstname": "Mark", "email": "mark.dierbach@nielsen.com", "telno": "847-870-0826", "address": "2139 N. Williamsburg St. Arlington Heights, IL  60004"},
+        {"lastname": "'Suleymanor", "firstname": "Anna", "email": "", "telno": "", "address": "2430 E Walden Ln"}
+    ],
+    "sellers": [
+        {"lastname": "Schuffler", "firstname": "Alex"},
+        {"lastname": "Culver", "firstname": "Justin"},
+        {"lastname": "Hemminger", "firstname": "Tucker"},
+        {"lastname": "Fuller", "firstname": "Luke and Grant"}
+    ],
+    "users": [
+        {"lastname": "Stevens", "firstname": "Betsy", "email": "betsystevens5@gmail.com", "privilege": "1"},
+        {"lastname": "Stevens", "firstname": "Karl", "email": "karl.stevens@gmail.com", "privilege": "1"},
+        {"lastname": "Schuffler", "firstname": "Susan", "email": "susan.schuffler@sap.com", "privilege": "1"}
+    ],
+    "orders": [
+        {"customer": "5fa6c096c4d30c3f59656c80", "seller": "5fa6c1bf8680d93fdeb9e17c", "paytype": "check", "amount": "127.00", "year": "2020"}
+    ],
+    "ordFlowers": [
+        {"order": "5fa6da6369326d488ec8b222", "flower": "5fa6db4369326d488ec8b224", "qty": 2}
     ]
+
 }

@@ -1,40 +1,40 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 
-const Customers = require('../models/customers');
-const customerRouter = express.Router();
+const Users = require('../models/users');
+const userRouter = express.Router();
 
-customerRouter.use(bodyParser.json());
+userRouter.use(bodyParser.json());
 
-customerRouter.route('/')
+userRouter.route('/')
 .get((req,res,next) => {
     console.log(req.query);
-    Customers.find(req.query)
-    .then((customers) => {
+    Users.find(req.query)
+    .then((users) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customers);
+        res.json(users);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post((req, res, next) => {
-    Customers.create(req.body)
-    .then((customer) => {
-        console.log("Customer created", customer);
+    Users.create(req.body)
+    .then((user) => {
+        console.log("User created", user);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customer);
+        res.json(user);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .put((req, res, next) => {
   res.statusCode = 403;
-  res.end('PUT operation not supported on /customers');
+  res.end('PUT operation not supported on /users');
 })
 .delete((req, res, next) => {
-    Customers.deleteMany({})
+    Users.deleteMany({})
     .then((resp) => {
-        console.log ("Deleted all customers");
+        console.log ("Deleted all users");
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(resp);
@@ -42,9 +42,9 @@ customerRouter.route('/')
     .catch((err) => next(err));
 });
 
-customerRouter.route('/:customerId')
+userRouter.route('/:userId')
 .get((req,res,next) => {
-    Customers.findById(req.params.customerId)
+    Users.findById(req.params.userId)
     .then((leader) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -54,21 +54,21 @@ customerRouter.route('/:customerId')
 })
 .post((req, res, next) => {
   res.statusCode = 403;
-  res.end('POST operation not supported on /customers/'+ req.params.customerId);
+  res.end('POST operation not supported on /users/'+ req.params.userId);
 })
 .put((req, res, next) => {
-    Customers.findByIdAndUpdate(req.params.customerId, {
+    Users.findByIdAndUpdate(req.params.userId, {
         $set: req.body
     }, { new: true })
-    .then((customer) => {
+    .then((user) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(customer);
+        res.json(user);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .delete((req, res, next) => {
-    Customers.findByIdAndRemove(req.params.customerId)
+    Users.findByIdAndRemove(req.params.userId)
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -77,4 +77,5 @@ customerRouter.route('/:customerId')
     .catch((err) => next(err));
 });
 
-module.exports = customerRouter;
+module.exports = userRouter;
+
