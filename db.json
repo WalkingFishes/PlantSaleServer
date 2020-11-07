@@ -1,0 +1,22 @@
+{
+    "prices": [
+        {"container": "accent 4 inch", "retail": "4.00", "wholesale": "2.75"},
+        {"container": "combo hb", "retail": "30.00", "wholesale": "22.00"},
+        {"container": "flat", "retail": "17.00", "wholesale": "12.00"},
+        {"container": "flower 4.5 inch", "retail": "4.00", "wholesale": "3.00"},
+        {"container": "flower 6 inch", "retail": "7.00", "wholesale": "5.00"},
+        {"container": "grass gallon", "retail": "9.00", "wholesale": "6.00"},
+        {"container": "hb", "retail": "24.00", "wholesale": "15.50"},
+        {"container": "herb 4 inch", "retail": "4.00", "wholesale": "2.75"},
+        {"container": "patio pot", "retail": "34.00", "wholesale": "22.00"},
+        {"container": "tomato 4 inch", "retail": "3.00", "wholesale": "1.75"},
+        {"container": "tomato gallon", "retail": "6.00", "wholesale": "4.00"}  
+    ],
+    "flowers": [
+        {"fname": "alyssum", "fvariety": "white", "fcontainer": "flat", "price": "5fa623067b76be23050b5e52"},
+        {"fname": "alyssum", "fvariety": "purple", "fcontainer": "flat", "price": "5fa623067b76be23050b5e52"},
+        {"fname": "accent", "fvariety": "spikes", "fcontainer": "accent 4 inch", "price": "5fa623067b76be23050b5e50"},
+        {"fname": "wave petunia", "fvariety": "bordeaux", "fcontainer": "hb", "price": "5fa623067b76be23050b5e56"},
+        {"fname": "tomato", "fvariety": "cherry", "fcontainer": "tomato 4 inch", "price": "5fa623067b76be23050b5e59"}
+    ]
+}

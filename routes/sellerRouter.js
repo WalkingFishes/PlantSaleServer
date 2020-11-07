@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const sellerRouter = express.Router();
 
-sellerRouter.unsubscribe(bodyParser.json());
+sellerRouter.use(bodyParser.json());
 
 sellerRouter.route('/')
 .all((req,res,next) => {

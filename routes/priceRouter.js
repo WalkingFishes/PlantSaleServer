@@ -1,44 +1,80 @@
-const express = require('express');
+const express = require('express')
 const bodyParser = require('body-parser');
 
+const Prices = require('../models/prices');
 const priceRouter = express.Router();
 
-priceRouter.unsubscribe(bodyParser.json());
+priceRouter.use(bodyParser.json());
 
 priceRouter.route('/')
-.all((req,res,next) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    next();
-})
 .get((req,res,next) => {
-    res.end('Will send all the prices to you!');
+    console.log(req.query);
+    Prices.find(req.query)
+    .then((prices) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(prices);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 })
 .post((req, res, next) => {
- res.end('Will add the price: ' + req.body.container + ' at retail ' + req.body.retail);
+    Prices.create(req.body)
+    .then((price) => {
+        console.log("Price created", price);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(price);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 })
 .put((req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation not supported on /prices');
 })
 .delete((req, res, next) => {
-    res.end('Deleting all prices');
+    Prices.deleteMany({})
+    .then((resp) => {
+        console.log ("Deleted all prices");
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(resp);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 });
 
 priceRouter.route('/:priceId')
 .get((req,res,next) => {
-    res.end('Will send details of the price: ' + req.params.priceId +' to you!');
+    Prices.findById(req.params.priceId)
+    .then((leader) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(leader);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 })
 .post((req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /prices/'+ req.params.priceId);
 })
 .put((req, res, next) => {
-  res.write('Updating the price: ' + req.params.priceId + '\n');
-  res.end('Will update the price: ' + req.body.container + ' at retail ' + req.body.retail);
+    Prices.findByIdAndUpdate(req.params.priceId, {
+        $set: req.body
+    }, { new: true })
+    .then((price) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(price);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 })
 .delete((req, res, next) => {
-    res.end('Deleting price: ' + req.params.priceId);
+    Prices.findByIdAndRemove(req.params.priceId)
+    .then((resp) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(resp);
+    }, (err) => next(err))
+    .catch((err) => next(err));
 });
 
 module.exports = priceRouter;

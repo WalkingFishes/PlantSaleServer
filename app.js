@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -10,6 +11,20 @@ var customerRouter = require('./routes/customerRouter');
 var flowerRouter = require('./routes/flowerRouter');
 var sellerRouter = require('./routes/sellerRouter'); 
 var priceRouter = require('./routes/priceRouter'); 
+
+const mongoose = require('mongoose');
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
+
+const url = config.mongoUrl;
+const connect = mongoose.connect(url);
+
+connect.then((db) => {
+    console.log('Connected to mongoDB');
+}, (err) => { console.log(err); });
 
 var app = express();
 
