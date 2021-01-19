@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const cors = require('./cors');
 
 const OrdFlowers = require('../models/ordFlowers');
 const ordFlowerRouter = express.Router();
@@ -7,7 +8,8 @@ const ordFlowerRouter = express.Router();
 ordFlowerRouter.use(bodyParser.json());
 
 ordFlowerRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     console.log(req.query);
     OrdFlowers.find(req.query)
     .then((ordFlowers) => {
@@ -17,7 +19,7 @@ ordFlowerRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     OrdFlowers.create(req.body)
     .then((ordFlower) => {
         console.log("OrdFlower created", ordFlower);
@@ -27,11 +29,11 @@ ordFlowerRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation not supported on /ordFlowers');
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     OrdFlowers.deleteMany({})
     .then((resp) => {
         console.log ("Deleted all ordFlowers");
@@ -43,7 +45,7 @@ ordFlowerRouter.route('/')
 });
 
 ordFlowerRouter.route('/:ordFlowerId')
-.get((req,res,next) => {
+.get(cors.corsWithOptions, (req,res,next) => {
     OrdFlowers.findById(req.params.ordFlowerId)
     .then((leader) => {
         res.statusCode = 200;
@@ -52,11 +54,11 @@ ordFlowerRouter.route('/:ordFlowerId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /ordFlowers/'+ req.params.ordFlowerId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     OrdFlowers.findByIdAndUpdate(req.params.ordFlowerId, {
         $set: req.body
     }, { new: true })
@@ -67,7 +69,7 @@ ordFlowerRouter.route('/:ordFlowerId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     OrdFlowers.findByIdAndRemove(req.params.ordFlowerId)
     .then((resp) => {
         res.statusCode = 200;

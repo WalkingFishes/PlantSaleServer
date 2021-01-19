@@ -2,17 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var flowerSchema = new Schema({
-    fname: {
+    name: {
         type: String,
         required: true,
     },
-    fvariety: {
+    variety: {
+        type: [String],
+        required: true,
+    },
+    container: {
         type: String,
         required: true,
     },
-    fcontainer: {
+    description: {
         type: String,
-        required: true,
+        default: '',
+    },
+    image: {
+        type: String,
+        default: ''
     },
     price: {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const cors = require('./cors');
 
 const Prices = require('../models/prices');
 const priceRouter = express.Router();
@@ -7,7 +8,8 @@ const priceRouter = express.Router();
 priceRouter.use(bodyParser.json());
 
 priceRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     console.log(req.query);
     Prices.find(req.query)
     .then((prices) => {
@@ -17,7 +19,7 @@ priceRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     Prices.create(req.body)
     .then((price) => {
         console.log("Price created", price);
@@ -27,11 +29,11 @@ priceRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation not supported on /prices');
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Prices.deleteMany({})
     .then((resp) => {
         console.log ("Deleted all prices");
@@ -43,7 +45,7 @@ priceRouter.route('/')
 });
 
 priceRouter.route('/:priceId')
-.get((req,res,next) => {
+.get(cors.corsWithOptions, (req,res,next) => {
     Prices.findById(req.params.priceId)
     .then((leader) => {
         res.statusCode = 200;
@@ -52,11 +54,11 @@ priceRouter.route('/:priceId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /prices/'+ req.params.priceId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     Prices.findByIdAndUpdate(req.params.priceId, {
         $set: req.body
     }, { new: true })
@@ -67,7 +69,7 @@ priceRouter.route('/:priceId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Prices.findByIdAndRemove(req.params.priceId)
     .then((resp) => {
         res.statusCode = 200;

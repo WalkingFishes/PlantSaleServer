@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('./cors');
 
 const Orders = require('../models/orders');
 const orderRouter = express.Router();
@@ -7,7 +8,8 @@ const orderRouter = express.Router();
 orderRouter.use(bodyParser.json());
 
 orderRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     console.log(req.query);
     Orders.find(req.query)
     .populate('customer')
@@ -20,7 +22,7 @@ orderRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     Orders.create(req.body)
     .then((order) => {
         Orders.findById(order.id)
@@ -35,11 +37,11 @@ orderRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation not supported on /orders');
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Orders.deleteMany({})
     .then((resp) => {
         console.log ("Deleted all orders");
@@ -51,7 +53,7 @@ orderRouter.route('/')
 });
 
 orderRouter.route('/:orderId')
-.get((req,res,next) => {
+.get(cors.corsWithOptions, (req,res,next) => {
     Orders.findById(req.params.orderId)
     .populate('customer')
     .populate('seller')
@@ -63,11 +65,11 @@ orderRouter.route('/:orderId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /orders/'+ req.params.orderId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     Orders.findByIdAndUpdate(req.params.orderId, {
         $set: req.body
     }, { new: true })
@@ -84,7 +86,7 @@ orderRouter.route('/:orderId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Orders.findByIdAndRemove(req.params.orderId)
     .then((resp) => {
         res.statusCode = 200;

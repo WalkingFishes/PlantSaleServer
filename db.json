@@ -13,11 +13,11 @@
         {"container": "tomato gallon", "retail": "6.00", "wholesale": "4.00"}  
     ],
     "flowers": [
-        {"fname": "alyssum", "fvariety": "white", "fcontainer": "flat", "price": "5fa623067b76be23050b5e52"},
-        {"fname": "alyssum", "fvariety": "purple", "fcontainer": "flat", "price": "5fa623067b76be23050b5e52"},
-        {"fname": "accent", "fvariety": "spikes", "fcontainer": "accent 4 inch", "price": "5fa623067b76be23050b5e50"},
-        {"fname": "wave petunia", "fvariety": "bordeaux", "fcontainer": "hb", "price": "5fa623067b76be23050b5e56"},
-        {"fname": "tomato", "fvariety": "cherry", "fcontainer": "tomato 4 inch", "price": "5fa623067b76be23050b5e59"}
+        {"name": "Alyssum", "variety": ["white", "purple", "mixed"], "container": "flat", "price": "5fa623067b76be23050b5e52", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "image": "images/flats/alyssumMixed512x138.jpg"},
+        {"name": "Begonia", "variety": ["white", "red", "pink", "mixed", "pink bronze leaf", "red bronze leaf"], "container": "flat", "price": "5fa623067b76be23050b5e52", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "image": "images/flats/begoniaBronzeLeafPink512x384.jpg"},
+        {"name": "Coleus", "variety": ["scarlet","mixed"], "container": "accent 4 inch", "price": "5fa623067b76be23050b5e50", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "image": "images/flats/coleusScarlet512x384.jpg"},
+        {"name": "Dahlia", "variety": ["mixed"], "container": "hb", "price": "5fa623067b76be23050b5e56", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "image": "images/flats/dahliaMixed512x384.jpg"},
+        {"name": "Dianthus", "variety": ["red", "mixed"], "container": "tomato 4 inch", "price": "5fa623067b76be23050b5e59", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.", "image": "images/flats/dianthusRed512x384.jpg"}
     ],
     "customers": [
         {"lastname": "Schuffler", "firstname": "Susan", "email": "susan.schuffler@sap.com", "telno": "847-670-4072", "address": "830 N. Princeton Arl Hts IL 60004"},

@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('./cors');
 
 const Flowers = require('../models/flowers');
 const flowerRouter = express.Router();
@@ -7,7 +8,8 @@ const flowerRouter = express.Router();
 flowerRouter.use(bodyParser.json());
 
 flowerRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     console.log(req.query);
     Flowers.find(req.query)
     .populate('price')
@@ -18,7 +20,7 @@ flowerRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     Flowers.create(req.body)
     .then((flower) => {
         Flowers.findById(flower._id)
@@ -32,11 +34,11 @@ flowerRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('PUT operation not supported on /flowers');
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Flowers.deleteMany({})
     .then((resp) => {
         console.log ("Deleted all flowers");
@@ -48,7 +50,8 @@ flowerRouter.route('/')
 });
 
 flowerRouter.route('/:flowerId')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions, (req,res,next) => {
     Flowers.findById(req.params.flowerId)
     .populate('price')
     .then((leader) => {
@@ -58,11 +61,11 @@ flowerRouter.route('/:flowerId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /flowers/'+ req.params.flowerId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     Flowers.findByIdAndUpdate(req.params.flowerId, {
         $set: req.body
     }, { new: true })
@@ -77,7 +80,7 @@ flowerRouter.route('/:flowerId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Flowers.findByIdAndRemove(req.params.flowerId)
     .then((resp) => {
         res.statusCode = 200;

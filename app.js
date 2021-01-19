@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
+const fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRouter');
@@ -13,6 +14,7 @@ var sellerRouter = require('./routes/sellerRouter');
 var priceRouter = require('./routes/priceRouter'); 
 var orderRouter = require('./routes/orderRouter'); 
 var ordFlowerRouter = require('./routes/ordFlowerRouter'); 
+var uploadRouter = require('./routes/uploadRouter'); 
 
 const mongoose = require('mongoose');
 mongoose.set('useUnifiedTopology', true);
@@ -39,6 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -48,6 +51,7 @@ app.use('/sellers', sellerRouter);
 app.use('/prices', priceRouter);
 app.use('/orders', orderRouter);
 app.use('/ordFlowers', ordFlowerRouter);
+app.use('/imageUpload', uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
